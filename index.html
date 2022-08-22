@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+</head>
+<body>
+    <div class="main">
+        <div class="top-bar">
+            <div class="tit">
+                <span>FreshFood</span>
+            </div>
+            <a href="#">
+                <div class="help">
+                    <img src="help_icon.png" alt="a" style="margin: 10px 5px 0 0; float: left;" />
+                    <span>Help</span>
+                </div>
+            </a>
+        </div>
+
+        <div id="input-container">
+            <p style="display: inline; margin: 30px 10px 0 15px; color: #504cfc;">Serial/Sku</p>
+            <input id="serial-input" type="text" />
+            <button id="add-button" type="submit" value="Submit">add</button>
+        </div>
+        
+        <table id="table" cellspacing="0" cellpadding="0" style="width:100%">
+            <tr class="table-header-row">
+                <th class="name-header">IN CART</th>
+                <th>PRICE $</th>
+                <th>QUANTITY</th>
+                <th>TOTAL</th>
+            </tr>
+        </table>
+        
+        <!-- TODO: carry style codes to css file -->
+        <div class="receipt-total-container" style="width: 100%;background-color:#504cfc; color:white; height: 14%; position:absolute; bottom: 0px; right: 0;">
+            <h2 style="margin:0; padding: 20px 0 0 50px; display: inline-block;">Total to pay: </h2>
+            <h2 style="margin:0; padding: 20px 100px 0 0; display: inline-block; float: right;">$</h2>
+            <h2 id="receipt-total" style="margin:0; padding: 20px 0 0 50px; display: inline-block; float: right;">0</h2>
+        </div>
+    
+    </div>
+    <button id="submit-btn" type="submit">submit</button>
+    <script type="text/javascript" src="main.js"></script>
+</body>
+</html>

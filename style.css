@@ -1,0 +1,124 @@
+
+html, body { width: 100%; height: 100%; } 
+body {
+    background-color:#e4ecfc;
+    font-family: 'Acme';font-size: 1.4rem;
+    /* font-style: bold; */
+    /* font-size: large; */
+}
+a, button{
+    cursor: pointer;
+}
+.main { 
+    width: 90%; 
+    height: 85%; 
+    background-color:white;
+    margin: 1% 4%;
+    padding: 0;
+    border-radius: 4mm;
+    overflow: hidden;
+    position: relative;
+}
+.top-bar{
+    width: 100%;
+    height: 10%;
+    /* display: block; */
+    /* background-color:cadetblue; */
+    background-color:white;
+    padding: 0;
+    border-radius: 4mm 4mm 0mm 0mm;
+    box-shadow: 0px 2px #e4ecfc;
+
+}
+.tit {
+    float: left;
+    height: 100%;
+    /* width: 10%; */
+    width: auto;
+    padding: 0px 20px 0px 20px;
+    border-radius: 4mm 0mm 0mm 0mm;
+    background-color: white;
+    /* color: #0e1140; */
+    color: #272d59;
+    text-align: center;
+    line-height:250%;
+    box-shadow: 2px 0px #e4ecfc;
+}
+.help{
+    float: right;
+    height: 100%;
+    /* width: 10%; */
+    width: auto;
+    padding: 0px 50px 0px 50px;
+    border-radius: 0mm 4mm 0mm 0mm;
+    background-color: #504cfc;
+    color: white ;
+    text-align: center;
+    line-height:250%;
+}
+#serial-input{
+    width:75%; display: inline;
+    line-height:300%;
+    margin: 15px 0 0 20px;
+}
+
+#input-container{
+    width: 100%;
+    height: auto;
+    background-color: #272d59;
+    padding: 0 0 15px 0;
+}
+
+#add-button{
+    line-height: 200%;
+    margin:0 20px;
+    padding: 5px 15px;
+}
+
+#table, table{
+    /* height: 100%; */
+    overflow: auto;
+    scroll-snap-align: end;
+}
+.table-row, .table-header, tr{
+    display: table-row;
+    width:100%;
+    height: 10px;
+}
+td{
+    display: table-cell;
+    text-align: center;
+}
+.name-header, .name{
+    width: 61%;
+}
+.name{
+    text-align: left;
+    /* background-color: #e4ecfc; */
+    /* margin: 50px; */
+    padding: 0 0 0 15px;
+}
+.table-header-row{
+    background-color: #2d2b92;
+    color: white;
+    /* background-color: chocolate;  */
+    /* text-align: center;            */
+}
+.delete{
+    float: right;
+}
+.quantity{
+    margin: 0 20px;
+}
+.minus, .plus{
+    display: inline;
+}
+#submit-btn{
+    float: right;
+    margin: 0 10%;
+    border-radius: 4mm;
+    padding: 20px 60px;
+    background-color:#2d2b92;
+    color: white;
+    font-size:x-large;
+}
