@@ -8,14 +8,14 @@ const data_base = {
 var receipt = {};
 
 var add_btn_element = document.getElementById("add-button");
-add_btn_element.onclick = function(){add_product()};
+add_btn_element.onclick = add_btn_click;
 
 var submit_btn_element = document.getElementById("submit-btn");
-submit_btn_element.onclick = function(){submit()};
+submit_btn_element.onclick = submit_btn_click;
 
-function add_product(){
+function add_btn_click(){
     var serial_input = document.getElementById("serial-input").value;
-    var product = data_base[serial_input];
+    var product = get_product(serial_input);
     if (product === undefined) {
         alert("product not found!");
         return false;
@@ -26,12 +26,12 @@ function add_product(){
         return true;
     }
 
-    receipt[serial_input] = {quantity: 1, total_price: product.price};
+    receipt[serial_input] = { quantity: 1, total_price: product.price};
 
     var row = create_row_element(product, serial_input);
     document.getElementById("table").appendChild(row);
 
-    update_receipt();
+    redraw_table();
 
     return true;
 }
@@ -44,7 +44,9 @@ function create_row_element(product, serial_input){
     var name = creat_product_name_element(product);
 
     var delete_mark = creat_delete_mark_element();
-    delete_mark.onclick = function(){delete_row(row)}
+    delete_mark.onclick = function(){
+        delete_row(row)
+    };
 
     name.appendChild(delete_mark);
 
@@ -136,14 +138,15 @@ function creart_row_total_element(product){
     return row_total;
 }
 
-function update_receipt(){
-    var receipt_total_price = 0;
+function redraw_table(){
+    var receipt_total_price = calculate_receipt_total();
     var serials = Object.keys(receipt);
     serials.forEach( serial =>{
         var row = document.getElementById(serial);
-        row.getElementsByClassName("quantity")[0].innerHTML = receipt[serial].quantity;
-        receipt_total_price += receipt[serial].total_price;
-        row.getElementsByClassName("row-total")[0].innerHTML = receipt[serial].total_price;
+        row.getElementsByClassName("quantity")[0].innerHTML =
+            receipt[serial].quantity;
+        row.getElementsByClassName("row-total")[0].innerHTML =
+            receipt[serial].total_price;
     });
     document.getElementById("receipt-total").innerHTML = receipt_total_price;
 }
@@ -151,27 +154,24 @@ function update_receipt(){
 
 // TODO: this function need more enhancement 
 // TODO: need to save receipt to json file
-function submit(){
+function submit_btn_click(){
     let serials = Object.keys(receipt);
     if (serials.length == 0){
         alert("cart is empty");
         return false;
     }
-    var receipt_JSON = [];
-    let receipt_total = 0;
-    let tmp = {name: "", price: "", quantity: "", total_price: ""};
-    serials.forEach( serial =>{
+    let receipt_JSON = [];
+    let receipt_total = calculate_receipt_total();
+    serials.forEach((serial) => {
+        let tmp = { name: '', price: '', quantity: '', total_price: '' };
         tmp.name = data_base[serial].name;
         tmp.price = data_base[serial].price;
         tmp.quantity = receipt[serial].quantity;
         tmp.total_price = receipt[serial].total_price;
         receipt_JSON.push(tmp);
-        receipt_total += receipt[serial].total_price;
-        let row = document.getElementById(serial)
-        delete_row(row);
     });
-    console.log(receipt_total);
-    receipt_JSON.push({total_to_pay: receipt_total})
+    receipt_JSON.push({total_to_pay: receipt_total});
+    clear_table();
     console.log(JSON.stringify(receipt_JSON));
 
     alert("thank you, your receipt has been saved to console");
@@ -181,13 +181,13 @@ function delete_row(product_row){
     let product_serial = product_row.id;
     delete receipt[product_serial]; 
     product_row.remove();
-    update_receipt();
+    redraw_table();
 }
 
 function increase_quantity(product_serial){
     receipt[product_serial].quantity += 1;
     receipt[product_serial].total_price = data_base[product_serial].price * receipt[product_serial].quantity;
-    update_receipt();
+    redraw_table();
 }
 
 function decrease_quantity(product_serial){
@@ -197,6 +197,33 @@ function decrease_quantity(product_serial){
         let row = document.getElementById(product_serial);
         delete_row(row);
     }
-    update_receipt();
+    redraw_table();
 }
 
+// deleting all rows of table
+function clear_table() {
+    // var table_element = document.getElementById('table');
+    // var talbe_header_row_element = document.getElementById('table-header-row');
+    // table_element.innerHTML = '';
+    // table_element.appendChild(talbe_header_row_element);
+    // unload_receipt();
+
+    var table_rows = document.getElementsByClassName('table-row');
+    for (let i = table_rows.length - 1; i >= 0; i--) {
+        delete_row(table_rows[i]);
+    }
+}
+
+function get_product(serial) {
+    var product = data_base[serial];
+    return product;
+}
+
+function calculate_receipt_total() {
+    var receipt_total_price = 0;
+    var serials = Object.keys(receipt);
+    serials.forEach((serial) => {
+        receipt_total_price += receipt[serial].total_price;
+    });
+    return receipt_total_price;
+}
